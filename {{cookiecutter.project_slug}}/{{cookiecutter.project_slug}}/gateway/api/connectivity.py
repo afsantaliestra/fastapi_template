@@ -2,7 +2,7 @@
 from fastapi import APIRouter
 from starlette.responses import RedirectResponse
 
-from {{cookiecutter.project_slug}}.gateway.schemas.connectivity import HeartbeatResponseSchema
+from {{cookiecutter.project_slug}}.application.schemas.connectivity import HeartbeatResponseSchema
 
 router = APIRouter(tags=["Connectivity"])
 

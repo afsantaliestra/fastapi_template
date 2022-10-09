@@ -5,10 +5,10 @@ from typing import List
 
 import aiosmtplib
 
-from {{cookiecutter.project_slug}}.domain.infrastructure.smtp_client import BaseSMTPClient
+from {{cookiecutter.project_slug}}.domain.infrastructure.smtp_client import ABCSMTPClient
 
 
-class SMTPClient(BaseSMTPClient):
+class SMTPClient(ABCSMTPClient):
     """SMTP Client"""
 
     def __init__(
@@ -20,6 +20,7 @@ class SMTPClient(BaseSMTPClient):
         port: int,
         tls: bool,
     ):
+        """Init"""
         self.sender = sender
         self.params = {
             "host": host,

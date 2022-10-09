@@ -12,6 +12,7 @@ router = APIRouter(prefix="/users", tags=["Users"])
 
 
 @router.get("/")
+@inject
 async def read_users(
     _current_user=Depends(deps.get_current_active_superuser),
     user_service: UserService = Depends(Provide[ApplicationContainer.services.user_service]),

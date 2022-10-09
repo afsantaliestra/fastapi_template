@@ -4,13 +4,12 @@ from datetime import datetime, timedelta
 from jose import jwt
 from passlib.context import CryptContext
 
-from {{cookiecutter.project_slug}}.application.base.services import Service
 from {{cookiecutter.project_slug}}.domain.entities.users import User
 
 EMAIL_RESET_TOKEN_EXPIRE_HOURS = 1
 
 
-class TokenService(Service):
+class TokenService:
     """Token Service"""
 
     def __init__(

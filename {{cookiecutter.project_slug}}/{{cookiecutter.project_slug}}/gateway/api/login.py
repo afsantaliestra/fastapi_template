@@ -5,6 +5,7 @@ from dependency_injector.wiring import Provide, inject
 from fastapi import APIRouter, Body, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
+from {{cookiecutter.project_slug}}.application.schemas.tokens.responses import JWTSchema
 from {{cookiecutter.project_slug}}.application.services.login import LoginService
 from {{cookiecutter.project_slug}}.containers import ApplicationContainer
 from {{cookiecutter.project_slug}}.gateway import deps
@@ -12,20 +13,22 @@ from {{cookiecutter.project_slug}}.gateway import deps
 router = APIRouter(tags=["Login"])
 
 
-@router.post("/login/access-token", response_model=dict)
+@router.post(
+    "/login/access-token",
+    response_model=JWTSchema,
+)
 @inject
 async def login_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
     login_service: LoginService = Depends(Provide[ApplicationContainer.services.login_service]),
-) -> Any:
+) -> JWTSchema:
     """OAuth2 compatible token login, get an access token for future requests"""
-    return {
-        "access_token": await login_service.authenticate(
+    return JWTSchema(
+        access_token=await login_service.authenticate(
             username=form_data.username,
             plain_password=form_data.password,
-        ),
-        "token_type": "bearer",
-    }
+        )
+    )
 
 
 @router.post("/login/test-token", response_model=dict)

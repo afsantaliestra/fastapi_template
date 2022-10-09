@@ -4,7 +4,6 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from pydantic import ValidationError
 
-from {{cookiecutter.project_slug}}.application.base.services import Service
 from {{cookiecutter.project_slug}}.application.schemas.tokens.requests import TokenSchema
 from {{cookiecutter.project_slug}}.application.schemas.users.requests import ReplaceUserSchema
 from {{cookiecutter.project_slug}}.application.services.token import TokenService
@@ -13,7 +12,7 @@ from {{cookiecutter.project_slug}}.domain.entities.users import User
 from {{cookiecutter.project_slug}}.infrastructure.smtp_client import SMTPClient
 
 
-class LoginService(Service):
+class LoginService:
     """Login Service"""
 
     reusable_oauth2 = OAuth2PasswordBearer(tokenUrl="/api/login/access-token")

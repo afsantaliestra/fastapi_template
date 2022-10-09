@@ -1,11 +1,14 @@
 """{{cookiecutter.project_name}} - Infrastructure - Repositories - In Memory - Users"""
 from typing import Optional
 
+from {{cookiecutter.project_slug}}.domain.base.repositories import ABCAsyncRepository
 
-class UserRepository:
+
+class UserRepository(ABCAsyncRepository):
     """User Repository"""
 
     def __init__(self):
+        """Init"""
         self.data = {}
 
     async def create_or_replace_user(

@@ -3,14 +3,13 @@ from typing import Optional
 
 from fastapi import HTTPException
 
-from {{cookiecutter.project_slug}}.application.base.services import Service
 from {{cookiecutter.project_slug}}.application.schemas.users.requests import CreateUserSchema, ReplaceUserSchema
 from {{cookiecutter.project_slug}}.application.services.token import TokenService
 from {{cookiecutter.project_slug}}.domain.entities.users import User
 from {{cookiecutter.project_slug}}.domain.infrastructure.repositories.users import UserRepository
 
 
-class UserService(Service):
+class UserService:
     """User Service"""
 
     def __init__(
