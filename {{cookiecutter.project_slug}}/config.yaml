@@ -1,0 +1,15 @@
+service:
+  token:
+    algorithm: HS256
+    secret_key: <token_secret_key>
+    token_expiration: 1480
+    reset_password_token_expiration: 60
+
+infrastructure:
+  smtp_client:
+    sender: <smtp_sender>
+    host: <smtp_host>
+    user: <smtp_user>
+    password: <smtp_password>
+    port: 587
+    tls: true

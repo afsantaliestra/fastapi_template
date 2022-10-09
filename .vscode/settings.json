@@ -1,0 +1,18 @@
+{
+    // VSCode configs.
+    "editor.formatOnSave": true,
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.pytest_cache": true,
+        "**/.vscode/*.log": true
+    },
+    "files.insertFinalNewline": true,
+    "editor.fontFamily": "'cascadia code'",
+    // Python configs.
+    "python.defaultInterpreterPath": ".venv/bin/python",
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": ".venv/bin/black",
+    "python.formatting.blackArgs": [
+        "--line-length=99"
+    ],
+}

@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "ms-python.python",
+        "waderyan.gitblame",
+        "mhutchie.git-graph",
+        "ms-vscode-remote.vscode-remote-extensionpack",
+        "yzhang.markdown-all-in-one",
+        "rangav.vscode-thunder-client",
+    ]
+}
