@@ -7,12 +7,9 @@ from {{cookiecutter.project_slug}}.application.schemas.connectivity import Heart
 router = APIRouter(tags=["Connectivity"])
 
 
-@router.get(
-    "/",
-    status_code=200,
-)
-def home() -> RedirectResponse:
-    """Home"""
+@router.get("/")
+def root_path() -> RedirectResponse:
+    """Root path"""
     return RedirectResponse("/docs")
 
 

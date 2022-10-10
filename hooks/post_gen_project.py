@@ -12,7 +12,7 @@ dependencies = [
     "aiosmtplib",
 ]
 
-dev_dependencies = ["black", "isort", "pylint", "bandit", "flake8", "pytest"]
+dev_dependencies = ["black", "isort", "pylint", "bandit", "flake8", "pytest", "requests"]
 
 
 def setup_poetry_environment():
