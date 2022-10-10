@@ -7,6 +7,7 @@ from fastapi import Depends, FastAPI
 
 from {{cookiecutter.project_slug}}.containers import ApplicationContainer
 from {{cookiecutter.project_slug}}.gateway.api import connectivity, login, users
+from {{cookiecutter.project_slug}}.gateway.middlewares import request_middleware
 
 
 class API(FastAPI):
@@ -40,6 +41,8 @@ app = API(
     title="{{cookiecutter.project_name}}",
     container=ApplicationContainer(),
 )
+
+app.middleware("http")(request_middleware)
 
 app.include_router(users.router, prefix="/api")
 app.include_router(login.router, prefix="/api")
