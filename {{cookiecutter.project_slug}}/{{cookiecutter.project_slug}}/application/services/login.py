@@ -1,4 +1,6 @@
 """{{cookiecutter.project_name}} - Application - Services - Login"""
+from typing import Any
+
 from fastapi import HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
@@ -27,7 +29,7 @@ class LoginService:
         self.user_service: UserService = user_service
         self.smtp_client: SMTPClient = smtp_client
 
-    async def authenticate(self, username: str, plain_password: str):
+    async def authenticate(self, username: str, plain_password: str) -> Any:
         """Authenticate"""
         user: User = await self.user_service.read_by_username(username)
 
@@ -40,7 +42,7 @@ class LoginService:
 
         return self.token_service.encode(user=user)
 
-    async def password_recovery(self, email: str):
+    async def password_recovery(self, email: str) -> Any:
         """Password recovery"""
         user = await self.user_service.read_by_email(email)
         password_reset_token = self.token_service.encode(user=user, ephemeral=True)
@@ -54,7 +56,7 @@ class LoginService:
 
         return {"msg": "Password recovery email sent"}
 
-    async def reset_password(self, current_user: User, new_password: str):
+    async def reset_password(self, current_user: User, new_password: str) -> Any:
         """Reset password"""
         return await self.user_service.replace(
             current_user.username,
@@ -65,7 +67,10 @@ class LoginService:
             ),
         )
 
-    async def get_current_user(self, token: str):
+    async def get_current_user(
+        self,
+        token: str,
+    ) -> User:
         """Get current user"""
         try:
             token_payload = self.token_service.decode(token)
@@ -83,7 +88,10 @@ class LoginService:
 
         return user
 
-    async def get_current_active_user(self, token: str):
+    async def get_current_active_user(
+        self,
+        token: str,
+    ) -> User:
         """Get current active user"""
         current_user: User = await self.get_current_user(token)
 
@@ -92,7 +100,10 @@ class LoginService:
 
         return current_user
 
-    async def get_current_active_superuser(self, token: str):
+    async def get_current_active_superuser(
+        self,
+        token: str,
+    ) -> User:
         """Get current active superuser"""
         current_user: User = await self.get_current_user(token)
 

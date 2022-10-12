@@ -2,6 +2,7 @@
 from typing import Optional
 
 from {{cookiecutter.project_slug}}.domain.base.repositories import ABCAsyncRepository
+from {{cookiecutter.project_slug}}.infrastructure.repositories.exceptions import UserNotFoundException
 
 
 class UserRepository(ABCAsyncRepository):
@@ -19,13 +20,13 @@ class UserRepository(ABCAsyncRepository):
         email: Optional[str],
     ):
         """Create or replace user"""
-        self.data[username] = data = {
+        self.data[username] = {
             "username": username,
             "hashed_password": password,
             "full_name": full_name,
             "email": email,
         }
-        return data
+        return self.data[username]
 
     async def find(self):
         """Find"""
@@ -33,7 +34,10 @@ class UserRepository(ABCAsyncRepository):
 
     async def get_by_username(self, username: str):
         """Get by username"""
-        return self.data.get(username)
+        if user := self.data.get(username):
+            return user
+
+        raise UserNotFoundException(username)
 
     async def get_by_email(self, email: str):
         """Get by email"""
@@ -41,12 +45,12 @@ class UserRepository(ABCAsyncRepository):
             if user["email"] == email:
                 return user
 
-        return None
+        raise UserNotFoundException(email)
 
     async def delete_by_username(self, username: str):
         """Delete by username"""
         if username not in self.data:
-            return False
+            raise UserNotFoundException(username)
 
         del self.data[username]
         return True

@@ -2,7 +2,7 @@
 from typing import Any
 
 from dependency_injector.wiring import Provide, inject
-from fastapi import APIRouter, Body, Depends
+from fastapi import APIRouter, Body, Depends, Path
 from fastapi.security import OAuth2PasswordRequestForm
 
 from {{cookiecutter.project_slug}}.application.schemas.tokens.responses import JWTSchema
@@ -42,7 +42,7 @@ async def test_token(
 @router.post("/password-recovery/{email}", response_model=dict)
 @inject
 async def recover_password(
-    email: str,
+    email: str = Path(...),
     login_service: LoginService = Depends(Provide[ApplicationContainer.services.login_service]),
 ) -> Any:
     """Recover password"""

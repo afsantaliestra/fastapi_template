@@ -1,11 +1,21 @@
 """{{cookiecutter.project_name}} - Tests - Conftest"""
-from fastapi.testclient import TestClient
-from pytest import fixture
+import pytest
 
 from {{cookiecutter.project_slug}} import app
+from {{cookiecutter.project_slug}}.domain.entities.users import User
+from tests.test_client import FastAPITestClient
 
-
-@fixture
+@pytest.fixture
 def test_client():
-    """FastAPI Test Client"""
-    return TestClient(app)
+    """FastAPI Test Client fixture"""
+    return FastAPITestClient(app)
+
+
+@pytest.fixture
+def user():
+    """User fixture"""
+    return User(
+        username="test_username",
+        hashed_password="test_hashed_password",
+        email="test@email.com",
+    )

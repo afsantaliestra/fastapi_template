@@ -13,7 +13,7 @@ class User(Entity):
     username: str
     hashed_password: str
 
-    code: UUID = uuid4()
+    code: UUID = uuid4().hex
     full_name: Optional[str] = None
     email: Optional[str] = None
     is_active: bool = True
